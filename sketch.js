@@ -18,13 +18,13 @@ function setup() {
     for(let j = 0; i<target.length; i++){
 
     //Calculate vector
-
     
     }
 
     //push vector to the array
 
     //cogs.push(createVector(Math.floor(random(-50,50)), Math.floor(random(-50,50))));
+  }
 }
 
 function draw() {
