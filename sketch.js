@@ -196,8 +196,10 @@ function draw() {
   endShape();
 
 
-  if(path.length>250){
-    path.slice(-1);
+  if(path.length>1000){
+    path.shift();
   }
+
+  console.log(path.length);
 
 }
