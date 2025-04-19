@@ -3,49 +3,176 @@
 
 let cogs = [];
 let path = [];
+let targe = [];
 
-const NUM_COGS = 6;
 
-let target = [createVector(50,50), createVector(50,100), createVector(50,150), createVector(50,200),  createVector(50,350), createVector(100,350), createVector(150,350), createVector(200, 350), createVector(250, 350), createVector(300, 350), createVector(350, 350), createVector(350, 300), createVector(350, 150), createVector(350, 100), createVector(350, 50), createVector(300, 50), createVector(250, 50), createVector(200, 50), createVector(150, 50), createVector(100, 50)];
+const NUM_COGS = 60;
 
 function setup() {
 
-  createCanvas(400, 400);
+  target = [createVector(150,0), 
+    createVector(150,10),
+    createVector(150,20),
+    createVector(150,30),
+    createVector(150,40),
+    createVector(150,50), 
+    createVector(150,60),
+    createVector(150,70),
+    createVector(150,80),
+    createVector(150,90),
+    createVector(150,100),
+    createVector(150,110),
+    createVector(150,120),
+    createVector(150,130),
+    createVector(150,140),
+    createVector(150,150),  
+    createVector(100,150),
+    createVector(90,150),
+    createVector(80,150),
+    createVector(70,150),
+    createVector(60,150), 
+    createVector(50,150),
+    createVector(40,150),
+    createVector(30,150),
+    createVector(20,150),
+    createVector(10,150), 
+    createVector(0,150),
+    createVector(-10,150),
+    createVector(-20,150),
+    createVector(-30,150),
+    createVector(-40,150),
+    createVector(-50, 150),
+    createVector(-60,150),
+    createVector(-70,150),
+    createVector(-80,150),
+    createVector(-90,150), 
+    createVector(-100, 150),
+    createVector(-110, 150),
+    createVector(-120, 150),
+    createVector(-130, 150),
+    createVector(-140, 150), 
+    createVector(-150, 150),
+    createVector(-150, 140),
+    createVector(-150, 130),
+    createVector(-150, 120),
+    createVector(-150, 110),
+    createVector(-150, 100),
+    createVector(-150, 90),
+    createVector(-150, 80),
+    createVector(-150, 70),
+    createVector(-150, 60), 
+    createVector(-150, 50),
+    createVector(-150, 40),
+    createVector(-150, 30),
+    createVector(-150, 20),
+    createVector(-150, 10), 
+    createVector(-150, 0),
+    createVector(-150, -10),
+    createVector(-150, -20),
+    createVector(-150, -30),
+    createVector(-150, -40),
+    createVector(-150, -50),
+    createVector(-150, -60),
+    createVector(-150, -70),
+    createVector(-150, -80),
+    createVector(-150, -90),
+    createVector(-150, -100),
+    createVector(-150, -110),
+    createVector(-150, -120),
+    createVector(-150, -130),
+    createVector(-150, -140), 
+    createVector(-150, -150),
+    createVector(-140, -150),
+    createVector(-130, -150),
+    createVector(-120, -150),
+    createVector(-110, -150),
+    createVector(-100, -150),
+    createVector(-90, -150),
+    createVector(-80, -150),
+    createVector(-70, -150),
+    createVector(-60, -150),
+    createVector(-50, -150),
+    createVector(-40, -150),
+    createVector(-30, -150),
+    createVector(-20, -150),
+    createVector(-10, -150), 
+    createVector(0, -150),
+    createVector(10, -150),
+    createVector(20, -150),
+    createVector(30, -150),
+    createVector(40, -150),
+    createVector(50, -150),
+    createVector(60, -150),
+    createVector(70, -150),
+    createVector(80, -150),
+    createVector(90, -150),
+    createVector(100, -150),
+    createVector(110, -150),
+    createVector(120, -150),
+    createVector(130, -150),
+    createVector(140, -150),
+    createVector(150, -150),
+    createVector(150, -140),
+    createVector(150, -130),
+    createVector(150, -120),
+    createVector(150, -110),
+    createVector(150, -100),
+    createVector(150, -90),
+    createVector(150, -80),
+    createVector(150, -70),
+    createVector(150, -60),
+    createVector(150, -50),
+    createVector(150, -40),
+    createVector(150, -30),
+    createVector(150, -20),
+    createVector(150, -10)];
+    
 
 
-  for(let i = 0; i<NUM_COGS; i++){
+  createCanvas(800, 800);
 
-    for(let j = 0; i<target.length; i++){
+  for(let k = -1*NUM_COGS; k<=NUM_COGS; k++){
 
-    //Calculate vector
+
+    print(k);
+
+    let outC = createVector(0,0);
+
+    for(let n = 0; n<target.length; n++){
+
+      let x = target[n].mag()*Math.cos(target[n].heading() - 2*Math.PI*(k/(NUM_COGS*2+1))*n)/NUM_COGS;
+      let y = target[n].mag()*Math.sin(target[n].heading() - 2*Math.PI*(k/(NUM_COGS*2+1))*n)/NUM_COGS;
+
+      outC.add(createVector(x,y));
     
     }
 
-    //push vector to the array
+    cogs[k]=outC;
 
-    //cogs.push(createVector(Math.floor(random(-50,50)), Math.floor(random(-50,50))));
   }
 }
 
 function draw() {
+
   background(220);
-
-  translate(200, 200);
-
+  translate(400, 400);
 
   let prevX = 0;
   let prevY = 0;
 
+  for(let k=-1*NUM_COGS; k<=NUM_COGS; k++){
 
+    let shp = createVector(0,0);
 
-  for(let i=0; i<cogs.length; i++){
+    shp = cogs[k];
+
     noFill();
     stroke(150);
-    ellipse(prevX, prevY, cogs[i].mag()*2);
+    ellipse(prevX, prevY, cogs[k].mag()*2);
     fill(255);
     stroke(0);
-    nextX = prevX + cogs[i].x;
-    nextY = prevY + cogs[i].y;
+    nextX = prevX + cogs[k].x;
+    nextY = prevY + cogs[k].y;
     ellipse(nextX, nextY, 5);
     stroke(150);
     line(prevX, prevY, nextX, nextY);
@@ -53,13 +180,7 @@ function draw() {
     prevX = nextX;
     prevY = nextY;
 
-    let half = Math.floor(cogs.length/2);
-
-    let coef = map(i, 0,cogs.length, -1*half, half);
-
-    cogs[i].rotate(coef*0.005);
-
-    print(coef);
+    cogs[k].rotate(2*Math.PI*(k/(NUM_COGS*2+1))*0.1);
 
   }
 
@@ -78,6 +199,5 @@ function draw() {
   if(path.length>250){
     path.slice(-1);
   }
-
 
 }
