@@ -141,15 +141,17 @@ function setup() {
     for(let n = 0; n<target.length; n++){
 
       let x = target[n].mag()*Math.cos(target[n].heading() - 2*Math.PI*(k/(NUM_COGS*2+1))*n)/NUM_COGS;
-      let y = target[n].mag()*Math.sin(target[n].heading() - 2*Math.PI*(k/(NUM_COGS*2+1))*n)/NUM_COGS;
+      let y = target[n].mag()*Math.sin(target[n].heading() - 2*Math.PI*(k/(NUM_COGS*2+1))*n)/NUM_COGS; //TODO: Refactor as array rotation.
 
       outC.add(createVector(x,y));
     
     }
 
-    cogs[k]=outC;
+    cogs.push({k:k, c:outC});
 
   }
+
+  cogs.sort((a,b) => b.c.mag() - a.c.mag());
 }
 
 function draw() {
@@ -160,19 +162,15 @@ function draw() {
   let prevX = 0;
   let prevY = 0;
 
-  for(let k=-1*NUM_COGS; k<=NUM_COGS; k++){
-
-    let shp = createVector(0,0);
-
-    shp = cogs[k];
+  for(let i=0; i<cogs.length; i++){
 
     noFill();
     stroke(150);
-    ellipse(prevX, prevY, cogs[k].mag()*2);
+    ellipse(prevX, prevY, cogs[i].c.mag()*2);
     fill(255);
     stroke(0);
-    nextX = prevX + cogs[k].x;
-    nextY = prevY + cogs[k].y;
+    nextX = prevX + cogs[i].c.x;
+    nextY = prevY + cogs[i].c.y; // TODO: Refactor as array addition
     ellipse(nextX, nextY, 5);
     stroke(150);
     line(prevX, prevY, nextX, nextY);
@@ -180,7 +178,7 @@ function draw() {
     prevX = nextX;
     prevY = nextY;
 
-    cogs[k].rotate(2*Math.PI*(k/(NUM_COGS*2+1))*0.1);
+    cogs[i].c.rotate(2*Math.PI*(cogs[i].k/(NUM_COGS*2+1))*0.1);
 
   }
 
